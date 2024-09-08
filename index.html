@@ -24,16 +24,21 @@
                 <option value="sell">Продажа</option>
             </select>
 
+            <!-- Поля для покупки -->
             <div id="buyFields" class="dealFields hidden">
                 <label for="amountRub">Сумма в RUB:</label>
                 <input type="number" id="amountRub" placeholder="Введите сумму">
 
+                <label for="commission">Комиссия (%):</label>
+                <input type="number" id="commission" placeholder="Введите комиссию">
+
                 <label for="exchangeRateUsd">Курс USD:</label>
                 <input type="number" id="exchangeRateUsd" placeholder="Введите курс">
-                
+
                 <button id="addPurchaseBtn">Добавить покупку</button>
             </div>
 
+            <!-- Поля для продажи -->
             <div id="sellFields" class="dealFields hidden">
                 <label for="purchaseId">ID Покупки:</label>
                 <input type="number" id="purchaseId" placeholder="Введите ID покупки">
@@ -43,7 +48,7 @@
 
                 <label for="saleRateUsd">Курс продажи USD:</label>
                 <input type="number" id="saleRateUsd" placeholder="Введите курс">
-                
+
                 <button id="addSaleBtn">Добавить продажу</button>
             </div>
         </div>
