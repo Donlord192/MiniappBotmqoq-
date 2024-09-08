@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Расчет суммы с учетом комиссии
-        const amountRubAfterCommission = amountRub - (amountRub * commission / 100);
+        const amountRubAfterCommission = amountRub * (1 - (commission / 100));
         const amountUsd = amountRubAfterCommission / exchangeRateUsd;
 
         const purchaseId = purchases.length ? purchases[purchases.length - 1].id + 1 : 1;
