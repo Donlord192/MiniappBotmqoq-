@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Mini App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Телеграм Мини-Приложение</h1>
+
+        <div class="action-buttons">
+            <button id="addDealBtn">Добавить сделку</button>
+            <button id="viewStatsBtn">Статистика</button>
+            <button id="calcSpreadBtn">Рассчитать спред</button>
+        </div>
+
+        <div class="form-container hidden" id="purchaseForm">
+            <h2>Добавить сделку</h2>
+            <label for="dealType">Тип сделки:</label>
+            <select id="dealType">
+                <option value="buy">Покупка</option>
+                <option value="sell">Продажа</option>
+            </select>
+
+            <div id="buyFields" class="dealFields hidden">
+                <label for="amountRub">Сумма в RUB:</label>
+                <input type="number" id="amountRub" placeholder="Введите сумму">
+
+                <label for="exchangeRateUsd">Курс USD:</label>
+                <input type="number" id="exchangeRateUsd" placeholder="Введите курс">
+                
+                <button id="addPurchaseBtn">Добавить покупку</button>
+            </div>
+
+            <div id="sellFields" class="dealFields hidden">
+                <label for="purchaseId">ID Покупки:</label>
+                <input type="number" id="purchaseId" placeholder="Введите ID покупки">
+
+                <label for="saleAmountUsd">Сумма продажи в USD:</label>
+                <input type="number" id="saleAmountUsd" placeholder="Введите сумму">
+
+                <label for="saleRateUsd">Курс продажи USD:</label>
+                <input type="number" id="saleRateUsd" placeholder="Введите курс">
+                
+                <button id="addSaleBtn">Добавить продажу</button>
+            </div>
+        </div>
+
+        <div class="stats-container hidden" id="statsContainer">
+            <h2>Статистика</h2>
+            <p>Прибыль: <span id="profitRub">0</span> RUB</p>
+            <p>Общий банк: <span id="totalBank">0</span> RUB</p>
+        </div>
+
+        <div class="spread-container hidden" id="spreadContainer">
+            <h2>Рассчитать спред</h2>
+            <label for="purchaseSpreadId">ID Покупки:</label>
+            <input type="number" id="purchaseSpreadId" placeholder="Введите ID покупки">
+
+            <label for="saleSpreadAmount">Сумма продажи в USD:</label>
+            <input type="number" id="saleSpreadAmount" placeholder="Введите сумму">
+
+            <label for="saleSpreadRate">Курс продажи USD:</label>
+            <input type="number" id="saleSpreadRate" placeholder="Введите курс">
+
+            <button id="calcSpreadResultBtn">Рассчитать спред</button>
+
+            <p id="spreadResult">Спред: <span>0</span> RUB (0%)</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
