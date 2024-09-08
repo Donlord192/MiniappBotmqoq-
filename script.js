@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const calcSpreadResultBtn = document.getElementById('calcSpreadResultBtn');
     const spreadResult = document.getElementById('spreadResult');
 
+    let purchases = [];
+    let sales = [];
+
     // Обработка кнопок действий
     addDealBtn.addEventListener('click', function () {
         purchaseForm.classList.remove('hidden');
@@ -32,10 +35,23 @@ document.addEventListener('DOMContentLoaded', function () {
         statsContainer.classList.remove('hidden');
         spreadContainer.classList.add('hidden');
 
-        // Заглушка для демонстрации статистики
-        // Реальная статистика будет обновляться динамически
-        profitRub.textContent = '15000';
-        totalBank.textContent = '50000';
+        let totalProfit = 0;
+        let totalAmount = 0;
+
+        // Подсчет прибыли
+        sales.forEach(sale => {
+            const purchase = purchases.find(p => p.id === sale.purchaseId);
+            if (purchase) {
+                const purchaseAmount = purchase.amountUsd * purchase.exchangeRateUsd;
+                const saleAmount = sale.saleAmountUsd * sale.saleRateUsd;
+                const profit = saleAmount - purchaseAmount;
+                totalProfit += profit;
+                totalAmount += purchaseAmount;
+            }
+        });
+
+        profitRub.textContent = totalProfit.toFixed(2);
+        totalBank.textContent = (totalAmount + totalProfit).toFixed(2);
     });
 
     calcSpreadBtn.addEventListener('click', function () {
@@ -59,7 +75,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const amountRubAfterCommission = amountRub - (amountRub * commission / 100);
         const amountUsd = amountRubAfterCommission / exchangeRateUsd;
 
-        alert(`Покупка завершена!\nСумма в RUB после комиссии: ${amountRubAfterCommission.toFixed(2)}\nСумма в USD: ${amountUsd.toFixed(2)}`);
+        const purchaseId = purchases.length ? purchases[purchases.length - 1].id + 1 : 1;
+        purchases.push({
+            id: purchaseId,
+            amountRub: amountRubAfterCommission,
+            exchangeRateUsd: exchangeRateUsd,
+            amountUsd: amountUsd
+        });
+
+        alert(`Покупка добавлена!\nID Покупки: ${purchaseId}\nСумма в RUB после комиссии: ${amountRubAfterCommission.toFixed(2)}\nСумма в USD: ${amountUsd.toFixed(2)}`);
     });
 
     // Обработка продажи
@@ -73,10 +97,20 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Рассчитываем сумму продажи в RUB
-        const saleAmountRub = saleAmountUsd * saleRateUsd;
+        const purchase = purchases.find(p => p.id === purchaseId);
+        if (!purchase) {
+            alert('Покупка с таким ID не найдена.');
+            return;
+        }
 
-        alert(`Продажа завершена!\nСумма продажи в RUB: ${saleAmountRub.toFixed(2)}`);
+        const saleAmountRub = saleAmountUsd * saleRateUsd;
+        sales.push({
+            purchaseId: purchaseId,
+            saleAmountUsd: saleAmountUsd,
+            saleRateUsd: saleRateUsd
+        });
+
+        alert(`Продажа добавлена!\nСумма продажи в RUB: ${saleAmountRub.toFixed(2)}`);
     });
 
     // Обработка расчета спреда
@@ -90,8 +124,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Пример расчета спреда (в реальном приложении будет интеграция с базой данных)
-        const purchaseAmountRub = 10000; // Замените на реальный запрос из базы данных
+        const purchase = purchases.find(p => p.id === purchaseSpreadId);
+        if (!purchase) {
+            alert('Покупка с таким ID не найдена.');
+            return;
+        }
+
+        const purchaseAmountRub = purchase.amountUsd * purchase.exchangeRateUsd;
         const saleAmountRub = saleSpreadAmount * saleSpreadRate;
         const spreadRub = saleAmountRub - purchaseAmountRub;
         const spreadPercent = (spreadRub / purchaseAmountRub) * 100;
