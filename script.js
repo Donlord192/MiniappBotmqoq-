@@ -60,6 +60,19 @@ document.addEventListener('DOMContentLoaded', function () {
         spreadContainer.classList.remove('hidden');
     });
 
+    // Обработка изменения типа сделки
+    dealTypeSelect.addEventListener('change', function () {
+        const selectedDealType = dealTypeSelect.value;
+
+        if (selectedDealType === 'buy') {
+            buyFields.classList.remove('hidden');
+            sellFields.classList.add('hidden');
+        } else if (selectedDealType === 'sell') {
+            sellFields.classList.remove('hidden');
+            buyFields.classList.add('hidden');
+        }
+    });
+
     // Обработка покупки
     addPurchaseBtn.addEventListener('click', function () {
         const amountRub = parseFloat(document.getElementById('amountRub').value);
