@@ -5,42 +5,56 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #000000;
+    color: #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
+    position: relative;
 }
 
 .container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(255, 165, 0, 0.7), 0 0 60px rgba(255, 165, 0, 0.4);
     width: 90%;
-    max-width: 600px;
+    max-width: 700px;
     text-align: center;
+    border: 1px solid rgba(255, 165, 0, 0.3);
+    position: relative;
+    z-index: 1;
 }
 
 h1 {
+    font-size: 2.5em;
     margin-bottom: 20px;
+    color: #ff9900;
+    text-shadow: 0 0 15px #ff9900, 0 0 30px rgba(255, 165, 0, 0.8);
+    letter-spacing: 2px;
 }
 
 .action-buttons button {
     margin: 10px;
-    padding: 10px 20px;
+    padding: 12px 25px;
     font-size: 16px;
     border: none;
-    background-color: #007bff;
+    background: linear-gradient(135deg, #ff9900, #ff6600);
     color: white;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.6);
 }
 
-button:hover {
-    background-color: #0056b3;
+.action-buttons button:hover {
+    background: linear-gradient(135deg, #ff6600, #ff9900);
+    box-shadow: 0 0 25px rgba(255, 165, 0, 0.8), 0 0 35px rgba(255, 102, 0, 0.6);
 }
 
 .hidden {
@@ -48,48 +62,103 @@ button:hover {
 }
 
 .form-container, .stats-container, .spread-container {
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 label {
     display: block;
-    margin: 10px 0 5px;
+    margin: 15px 0 5px;
+    color: #ff9900;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
-input {
+input, select {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #ff9900;
+    border-radius: 10px;
+    background-color: #1b1b1b;
+    color: #e0e0e0;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #ff9900;
 }
 
 button {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #28a745;
-    color: white;
+    padding: 12px;
+    font-size: 18px;
+    background: linear-gradient(135deg, #ff9900, #ff6600);
+    color: #0d0d0d;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
 }
 
 button:hover {
-    background-color: #218838;
+    background: linear-gradient(135deg, #ff6600, #ff9900);
+    box-shadow: 0 0 30px rgba(255, 165, 0, 0.6);
+}
+
+p {
+    font-size: 1.2em;
+    color: #ff9900;
+    margin-bottom: 10px;
+}
+
+#spreadResult span {
+    font-weight: bold;
+    color: #ff9900;
 }
 
 @media (max-width: 600px) {
     .container {
-        width: 100%;
+        width: 95%;
+        padding: 20px;
     }
 
     button {
         font-size: 14px;
-        padding: 8px;
+        padding: 10px;
     }
 
-    input {
+    input, select {
         font-size: 14px;
+    }
+}
+
+/* Рандомные изображения на фоне */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.05;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg'),
+                      url('https://upload.wikimedia.org/wikipedia/commons/e/e3/Dollar_sign.svg'),
+                      url('https://upload.wikimedia.org/wikipedia/commons/1/1e/Euro_Sign.svg');
+    background-repeat: no-repeat;
+    background-size: 300px 300px;
+    background-position: 10% 20%, 50% 70%, 90% 10%;
+    animation: moveBackground 20s linear infinite;
+}
+
+@keyframes moveBackground {
+    0% {
+        background-position: 10% 20%, 50% 70%, 90% 10%;
+    }
+    100% {
+        background-position: 90% 10%, 50% 30%, 10% 80%;
     }
 }
